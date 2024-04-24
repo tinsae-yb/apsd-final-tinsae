@@ -95,7 +95,7 @@ public class AuthServiceImpl implements AuthService {
 
        jwtUtil.validateToken(refreshTokenRequest.getRefreshToken());
        String subject = jwtUtil.extractClaim(refreshTokenRequest.getRefreshToken(), Claims::getSubject);
-         User user = userRepository.findByEmail(subject).orElseThrow(() -> new UsernameNotFoundException("Invalid token"));
+        User user = userRepository.findByEmail(subject).orElseThrow(() -> new UsernameNotFoundException("Invalid token"));
         UserDetails userDetails = new UserDetailsImpl(user);
         String accessToken = jwtUtil.generateAccessToken(userDetails);
 

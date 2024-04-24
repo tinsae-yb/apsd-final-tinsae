@@ -16,26 +16,26 @@ public class Reservation {
     private Long id;
 
     @ManyToOne
-    @Column(nullable = false)
+    @JoinColumn(nullable = false)
     private Address pickupAddress;
 
     @ManyToOne
-    @Column(nullable = false)
+    @JoinColumn(nullable = false)
     private Address dropoffAddress;
 
     @ManyToOne
-    @Column(nullable = false)
+    @JoinColumn(nullable = false)
     private Vehicle vehicle;
 
     @ManyToOne
-    @Column(nullable = false)
+    @JoinColumn(nullable = false)
     private Customer customer;
 
     private ReservationStatus status = ReservationStatus.PENDING;
 
-    @Column(nullable = false)
+    @JoinColumn(nullable = false)
     private LocalDate pickupDate;
-    @Column(nullable = false)
+    @JoinColumn(nullable = false)
     private LocalDate expectedDropOffDate;
     private LocalDate actualDropOffDate;
 

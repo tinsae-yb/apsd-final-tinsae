@@ -1,5 +1,6 @@
 package org.example.crms.service.impl;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.example.crms.UserDetailsImpl;
 import org.example.crms.entity.User;
@@ -15,6 +16,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     final UserRepository userRepository;
     @Override
+    @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException("User not found"));
         return new UserDetailsImpl(user);

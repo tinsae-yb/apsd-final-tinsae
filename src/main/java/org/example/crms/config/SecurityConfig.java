@@ -2,6 +2,7 @@ package org.example.crms.config;
 
 
 import lombok.RequiredArgsConstructor;
+import org.example.crms.entity.Role;
 import org.example.crms.filter.JWTFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -32,7 +33,10 @@ public class SecurityConfig {
                 .cors(CorsConfigurer::disable)
                 .sessionManagement(sessionManagement -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorizeRequests ->
-                        authorizeRequests.requestMatchers(HttpMethod.POST, "api/v1/auth/login", "api/v1/auth/refresh", "api/v1/auth/register").permitAll()
+                        {
+                            authorizeRequests.requestMatchers(HttpMethod.POST, "api/v1/auth/login", "api/v1/auth/refresh", "api/v1/auth/register").permitAll();
+                            authorizeRequests.requestMatchers(HttpMethod.POST, "api/v1/vehicle").hasAuthority(Role.RoleType.ADMIN.name());
+                        }
                 )
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
