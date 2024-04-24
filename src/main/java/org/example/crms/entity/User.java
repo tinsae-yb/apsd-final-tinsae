@@ -9,7 +9,8 @@ import java.util.List;
 @Entity
 @Table(name = "Users")
 @Data
-public class User {
+@Inheritance(strategy = InheritanceType.JOINED)
+ public class User {
 
     @Id
     @GeneratedValue
