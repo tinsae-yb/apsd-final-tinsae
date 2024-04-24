@@ -2,14 +2,15 @@ package org.example.crms.config;
 
 import io.jsonwebtoken.security.Keys;
 import lombok.Data;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
 import java.security.Key;
 
-@Component
-@Configuration("jwt.signing")
+@Configuration
+@ConfigurationProperties("jwt.signing")
 @Data
 public class JwtConfig {
     private String secret;

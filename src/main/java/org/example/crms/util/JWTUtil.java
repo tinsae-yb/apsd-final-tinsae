@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.crms.config.JwtConfig;
+import org.example.crms.exception.UnAuthorizedException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
@@ -21,7 +22,7 @@ import java.util.function.Function;
 @Slf4j
 public class JWTUtil {
 
-    private JwtConfig jwtConfig;
+    private final JwtConfig jwtConfig;
 
 
 
@@ -78,23 +79,10 @@ public class JWTUtil {
         try {
             Jwts.parser().verifyWith(jwtConfig.getSecretKey()).build().parseSignedClaims(token);
             return true;
-        } catch (SignatureException e) {
-            log.info("Invalid JWT signature.");
-            log.trace("Invalid JWT signature trace: {}", e);
-        } catch (MalformedJwtException e) {
-            log.info("Invalid JWT token.");
-            log.trace("Invalid JWT token trace: {}", e);
-        } catch (ExpiredJwtException e) {
-            log.info("Expired JWT token.");
-            log.trace("Expired JWT token trace: {}", e);
-        } catch (UnsupportedJwtException e) {
-            log.info("Unsupported JWT token.");
-            log.trace("Unsupported JWT token trace: {}", e);
-        } catch (IllegalArgumentException e) {
-            log.info("JWT token compact of handler are invalid.");
-            log.trace("JWT token compact of handler are invalid trace: {}", e);
+        } catch (Exception e) {
+            throw new UnAuthorizedException("Invalid JWT token");
         }
-        return false;
+
     }
 
     public String getToken (HttpServletRequest httpServletRequest) {

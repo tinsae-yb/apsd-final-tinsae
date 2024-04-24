@@ -4,8 +4,10 @@ package org.example.crms.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.List;
+
 @Entity
-@Table(name = "user")
+@Table(name = "Users")
 @Data
 public class User {
 
@@ -20,4 +22,6 @@ public class User {
     @Column(unique = true)
     private String email;
     private String password;
+    @ManyToMany
+    private List<Role> roles;
 }
