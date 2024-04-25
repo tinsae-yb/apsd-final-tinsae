@@ -1,6 +1,7 @@
 package org.example.crms.dto.vehicle;
 
 
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import org.example.crms.entity.Vehicle;
@@ -29,6 +30,10 @@ public class VehicleBasicInformation {
     private Vehicle.VehicleType vehicleType;
 
     private Integer mileage;
+
+    @NotNull
+    @Min(1)
+    private Long locationId;
 
     public Vehicle toVehicle() {
         Vehicle vehicle = new Vehicle();

@@ -45,6 +45,10 @@ public class Vehicle {
     @OneToMany(mappedBy = "vehicle")
     List<Reservation> reservations;
 
+    @OneToOne
+    @JoinColumn(nullable = false)
+    private Location location;
+
     public enum VehicleType {
         SEDAN, SUV, TRUCK, VAN, MOTORCYCLE
     }

@@ -16,7 +16,7 @@ public class LocationServiceImpl implements LocationService {
     public LocationResponse addLocation(LocationBasicInfo locationBasicInfo) {
         Location location = locationBasicInfo.toLocation();
         location = locationRepository.save(location);
-        return LocationResponse.fromAddress(location);
+        return LocationResponse.fromLocation(location);
 
     }
 }

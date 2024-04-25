@@ -2,7 +2,7 @@ package org.example.crms.controllers;
 
 
 import lombok.RequiredArgsConstructor;
-import org.example.crms.dto.vehicle.RegisterVehicleResponse;
+import org.example.crms.dto.vehicle.VehicleResponse;
 import org.example.crms.dto.vehicle.VehicleBasicInformation;
 import org.example.crms.service.VehicleService;
 import org.springframework.validation.annotation.Validated;
@@ -16,12 +16,12 @@ public class VehicleController {
     final private VehicleService vehicleService;
 
     @PostMapping()
-    public RegisterVehicleResponse registerVehicle(@Validated @RequestBody VehicleBasicInformation vehicleBasicInformation){
+    public VehicleResponse registerVehicle(@Validated @RequestBody VehicleBasicInformation vehicleBasicInformation){
         return vehicleService.registerVehicle(vehicleBasicInformation);
     }
 
     @PutMapping("/{id}")
-    public RegisterVehicleResponse updateVehicle(@PathVariable Long id,  @RequestBody VehicleBasicInformation vehicleBasicInformation){
+    public VehicleResponse updateVehicle(@PathVariable Long id, @RequestBody VehicleBasicInformation vehicleBasicInformation){
         return vehicleService.updateVehicle(id, vehicleBasicInformation);
     }
 }

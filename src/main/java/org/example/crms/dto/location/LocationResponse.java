@@ -2,7 +2,6 @@ package org.example.crms.dto.location;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.example.crms.entity.Address;
 import org.example.crms.entity.Location;
 
 @EqualsAndHashCode(callSuper = false)
@@ -10,7 +9,7 @@ import org.example.crms.entity.Location;
 public class LocationResponse extends LocationBasicInfo{
     private  Long id;
 
-    public static LocationResponse fromAddress(Location location) {
+    public static LocationResponse fromLocation(Location location) {
         LocationResponse locationResponse = new LocationResponse();
         locationResponse.setId(location.getId());
         locationResponse.setStreet(location.getStreet());
