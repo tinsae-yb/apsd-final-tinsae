@@ -38,8 +38,8 @@ jobs:
           sarif_file: ${{ steps.scan.outputs.sarif }}
       - name: Build, unit tests and integration tests
         run: |
-          chmod +x gradlew                                 
-          ./gradlew build
+          chmod +x mvnw                                 
+          ./mvn install 
 
   package:
     name: package and release
@@ -57,11 +57,11 @@ jobs:
         uses: actions/setup-java@v3
         with:
           distribution: temurin
-          java-version: 17
-          cache: gradle
+          java-version: 21
+          cache: maven
       - name: Build container image
         run: |
-          chmod +x gradlew
+          chmod +x mvnw
           ./spring-boot:build-image -DskipTests --imageName ${{env.REGISTRY}}/${{env.IMAGE_NAME}}:${{env.VERSION}}
       - name: OCI image vulnerability scan
         uses: anchore/scan-action@v3
