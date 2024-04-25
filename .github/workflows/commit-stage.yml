@@ -62,7 +62,7 @@ jobs:
       - name: Build container image
         run: |
           chmod +x mvnw
-          ./spring-boot:build-image -DskipTests --imageName ${{env.REGISTRY}}/${{env.IMAGE_NAME}}:${{env.VERSION}}
+          ./mvnw spring-boot:build-image -DskipTests --imageName ${{env.REGISTRY}}/${{env.IMAGE_NAME}}:${{env.VERSION}}
       - name: OCI image vulnerability scan
         uses: anchore/scan-action@v3
         id: scan
