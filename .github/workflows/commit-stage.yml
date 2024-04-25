@@ -3,7 +3,7 @@ on: push
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: apsd-final-tinsae
+  IMAGE_NAME: tinsae-yb/apsd-final-tinsae
   VERSION: 1.0.0
 
 
