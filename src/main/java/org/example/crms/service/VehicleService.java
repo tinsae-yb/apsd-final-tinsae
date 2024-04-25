@@ -7,4 +7,6 @@ import org.springframework.stereotype.Service;
 @Service
 public interface VehicleService {
     RegisterVehicleResponse registerVehicle(VehicleBasicInformation vehicleBasicInformation);
+
+    RegisterVehicleResponse updateVehicle(Long id, VehicleBasicInformation vehicleBasicInformation);
 }

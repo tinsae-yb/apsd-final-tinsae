@@ -1,7 +1,10 @@
 package org.example.crms.advice;
 
 
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.JwtException;
 import org.example.crms.exception.BadRequestException;
+import org.example.crms.exception.NotFoundException;
 import org.example.crms.exception.UnAuthorizedException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -58,5 +61,18 @@ public class RestControllerAdvices {
         @ResponseStatus(HttpStatus.UNAUTHORIZED)
         public Map<String, String> handleUnAuthorizedException(UnAuthorizedException e) {
             return Map.of("error", e.getMessage());
+        }
+
+        @ExceptionHandler(NotFoundException.class)
+        @ResponseStatus(HttpStatus.NOT_FOUND)
+        public Map<String, String> handleNotFoundException(NotFoundException e) {
+            return Map.of("error", e.getMessage());
+        }
+
+        @ExceptionHandler(JwtException.class)
+        @ResponseStatus(HttpStatus.UNAUTHORIZED)
+        public Map<String, String> handleExpiredJwtException(JwtException e) {
+
+            return Map.of("error", "Invalid token", "message", e.getMessage());
         }
 }
