@@ -17,11 +17,10 @@ public class Reservation {
 
     @ManyToOne
     @JoinColumn(nullable = false)
-    private Address pickupAddress;
+    private Location pickupLocation;
 
     @ManyToOne
-    @JoinColumn(nullable = false)
-    private Address dropoffAddress;
+    private Location dropOffLocation;
 
     @ManyToOne
     @JoinColumn(nullable = false)
@@ -31,6 +30,7 @@ public class Reservation {
     @JoinColumn(nullable = false)
     private Customer customer;
 
+    @Enumerated(EnumType.STRING)
     private ReservationStatus status = ReservationStatus.PENDING;
 
     @JoinColumn(nullable = false)
@@ -41,10 +41,21 @@ public class Reservation {
 
     private BigDecimal pricePerDay;
 
+    @OneToOne(mappedBy = "reservation")
+    private Rental rental;
+
+    public ReservationStatus getStatus() {
+        if(rental != null) {
+            return ReservationStatus.PAID;
+        }
+        return status;
+    }
+
+
 
 
     public enum ReservationStatus {
-        PENDING, CONFIRMED, PICKED,  CANCELLED
+        PENDING, CONFIRMED, PICKED,  CANCELLED, COMPLETED, PAID
     }
 
 

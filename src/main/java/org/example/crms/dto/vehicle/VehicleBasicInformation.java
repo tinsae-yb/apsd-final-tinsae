@@ -29,6 +29,9 @@ public class VehicleBasicInformation {
     @NotNull
     private Vehicle.VehicleType vehicleType;
 
+
+    private Vehicle.VehicleAvailability availability;
+
     private Integer mileage;
 
     @NotNull
@@ -45,6 +48,7 @@ public class VehicleBasicInformation {
         vehicle.setPricePerDay(pricePerDay);
         vehicle.setVehicleType(vehicleType);
         vehicle.setMileage(mileage);
+        vehicle.setAvailability(availability);
         return vehicle;
     }
 
@@ -58,6 +62,8 @@ public class VehicleBasicInformation {
         vehicleBasicInformation.setPricePerDay(vehicle.getPricePerDay());
         vehicleBasicInformation.setVehicleType(vehicle.getVehicleType());
         vehicleBasicInformation.setMileage(vehicle.getMileage());
+        vehicleBasicInformation.setLocationId(vehicle.getLocation().getId());
+        vehicleBasicInformation.setAvailability(vehicle.getAvailability());
         return vehicleBasicInformation;
     }
 }

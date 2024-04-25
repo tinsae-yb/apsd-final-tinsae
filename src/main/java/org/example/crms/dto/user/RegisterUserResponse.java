@@ -8,6 +8,7 @@ import java.util.List;
 
 @Data
 public class RegisterUserResponse {
+    private Long id;
 
     private String username;
 
@@ -20,12 +21,13 @@ public class RegisterUserResponse {
     private String refreshToken;
 
     public static RegisterUserResponse fromUser(User user, String accessToken, String refreshToken) {
-        RegisterUserResponse registerUserResponse = new RegisterUserResponse();
-        registerUserResponse.username = user.getUsername();
-        registerUserResponse.email = user.getEmail();
-        registerUserResponse.roles = user.getRoles().stream().map(RoleDTO::fromRole).toList();
-        registerUserResponse.accessToken = accessToken;
-        registerUserResponse.refreshToken = refreshToken;
-        return registerUserResponse;
+        RegisterUserResponse userResponse = new RegisterUserResponse();
+        userResponse.id = user.getId();
+        userResponse.username = user.getUsername();
+        userResponse.email = user.getEmail();
+        userResponse.roles = user.getRoles().stream().map(RoleDTO::fromRole).toList();
+        userResponse.accessToken = accessToken;
+        userResponse.refreshToken = refreshToken;
+        return userResponse;
     }
 }

@@ -13,6 +13,9 @@ import org.example.crms.service.VehicleService;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class VehicleServiceImpl implements VehicleService {
@@ -51,6 +54,22 @@ public class VehicleServiceImpl implements VehicleService {
 
         return VehicleResponse.fromVehicle(newVehicle);
 
+
+    }
+
+    @Override
+    public List<VehicleResponse> getVehicles(Long location, Vehicle.VehicleType type, Boolean available) {
+        List<Vehicle> vehicles ;
+        if(available == null) {
+
+         vehicles=   vehicleRepository.findByLocationIdAndVehicleType(location, type, null);
+        }else if(available) {
+            vehicles = vehicleRepository.findByLocationIdAndVehicleType(location, type, Vehicle.VehicleAvailability.AVAILABLE);
+
+        }else {
+            vehicles = vehicleRepository.findByLocationIdAndVehicleType(location, type, Vehicle.VehicleAvailability.UNAVAILABLE);
+        }
+        return vehicles.stream().map(VehicleResponse::fromVehicle).toList();
 
     }
 

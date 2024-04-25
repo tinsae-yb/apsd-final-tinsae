@@ -4,9 +4,11 @@ import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
 import lombok.Data;
 import org.example.crms.dto.RoleDTO;
+import org.example.crms.entity.Customer;
 import org.example.crms.entity.Role;
 import org.example.crms.entity.User;
 
@@ -27,15 +29,24 @@ public class RegisterUserRequest {
     private String password;
 
 
-    @NotEmpty(message = "Roles cannot be empty")
-    private List<RoleDTO> roles;
+    @NotNull(message = "Roles cannot be null")
+    private RoleDTO role;
 
     public User toUser() {
         User user = new User();
         user.setUsername(username);
         user.setEmail(email);
         user.setPassword(password);
-        user.setRoles(roles.stream().map(RoleDTO::toRole).toList());
+        user.setRoles(List.of(role.toRole()));
         return user;
+    }
+
+    public Customer toCustomer() {
+        Customer customer = new Customer();
+        customer.setUsername(username);
+        customer.setEmail(email);
+        customer.setPassword(password);
+        customer.setRoles(List.of(role.toRole()));
+        return customer;
     }
 }

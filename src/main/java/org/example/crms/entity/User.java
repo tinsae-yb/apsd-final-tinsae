@@ -9,7 +9,7 @@ import java.util.List;
 @Entity
 @Table(name = "Users")
 @Data
-@Inheritance(strategy = InheritanceType.JOINED)
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
  public class User {
 
     @Id

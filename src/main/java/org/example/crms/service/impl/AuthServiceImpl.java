@@ -3,15 +3,18 @@ package org.example.crms.service.impl;
 import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
 import org.example.crms.UserDetailsImpl;
+import org.example.crms.dto.RoleDTO;
 import org.example.crms.dto.auth.LoginRequest;
 import org.example.crms.dto.auth.LoginResponse;
 import org.example.crms.dto.auth.RefreshTokenRequest;
 import org.example.crms.dto.auth.RefreshTokenResponse;
 import org.example.crms.dto.user.RegisterUserRequest;
 import org.example.crms.dto.user.RegisterUserResponse;
+import org.example.crms.entity.Customer;
 import org.example.crms.entity.Role;
 import org.example.crms.entity.User;
 import org.example.crms.exception.BadRequestException;
+import org.example.crms.repo.CustomerRepository;
 import org.example.crms.repo.RoleRepository;
 import org.example.crms.repo.UserRepository;
 import org.example.crms.service.AuthService;
@@ -30,6 +33,7 @@ import java.util.Optional;
 public class AuthServiceImpl implements AuthService {
 
     private final UserRepository userRepository;
+    private final CustomerRepository customerRepository;
     private final PasswordEncoder passwordEncoder;
     private final JWTUtil jwtUtil;
     private final UserDetailsServiceImpl userDetailsService;
@@ -37,7 +41,34 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public RegisterUserResponse register(RegisterUserRequest registerUserRequest) {
+
+
         try {
+
+
+
+            if(registerUserRequest.getRole().getRoleType() == Role.RoleType.CUSTOMER){
+                Customer customer = registerUserRequest.toCustomer();
+
+                customer.setPassword(passwordEncoder.encode(customer.getPassword()));
+                List<Role> roles = customer.getRoles().stream().map(role -> {
+                    Optional<Role> optionalRole = roleRepository.findByRoleType(role.getRoleType());
+                    if (optionalRole.isEmpty()) {
+                        role = roleRepository.save(role);
+                    } else {
+                        role = optionalRole.get();
+                    }
+                    return role;
+                }).toList();
+                customer.setRoles(roles);
+                customer = customerRepository.save(customer);
+                UserDetails userDetails = new UserDetailsImpl(customer);
+                String accessToken = jwtUtil.generateAccessToken(userDetails);
+                String refreshToken = jwtUtil.generateRefreshToken(userDetails);
+                return RegisterUserResponse.fromUser(customer, accessToken, refreshToken);
+
+            }
+
             User user = registerUserRequest.toUser();
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             List<Role> roles = user.getRoles().stream().map(role -> {

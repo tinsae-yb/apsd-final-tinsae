@@ -34,10 +34,19 @@ public class SecurityConfig {
                 .sessionManagement(sessionManagement -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorizeRequests ->
                         {
+                            // AUTH
                             authorizeRequests.requestMatchers(HttpMethod.POST, "api/v1/auth/login", "api/v1/auth/refresh", "api/v1/auth/register").permitAll();
+                           // VEHICLE
                             authorizeRequests.requestMatchers(HttpMethod.POST, "api/v1/vehicle").hasAuthority(Role.RoleType.ADMIN.name());
+                            authorizeRequests.requestMatchers(HttpMethod.GET, "api/v1/vehicle").permitAll();
                             authorizeRequests.requestMatchers(HttpMethod.PUT, "api/v1/vehicle/{id}").hasAuthority(Role.RoleType.ADMIN.name());
+                            // LOCATION
                             authorizeRequests.requestMatchers(HttpMethod.POST, "api/v1/location").hasAuthority(Role.RoleType.ADMIN.name());
+                            // RESERVATION
+                            authorizeRequests.requestMatchers(HttpMethod.POST, "api/v1/reservation").authenticated();
+                            authorizeRequests.requestMatchers(HttpMethod.PUT, "api/v1/reservation/{id}").authenticated();
+                            authorizeRequests.requestMatchers(HttpMethod.GET, "api/v1/reservation").authenticated();
+                            authorizeRequests.requestMatchers(HttpMethod.POST, "api/v1/reservation/{id}/make-payment").authenticated();
                         }
                 )
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
