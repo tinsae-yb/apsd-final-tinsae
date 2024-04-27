@@ -203,19 +203,18 @@ public class ReservationServiceImpl implements ReservationService {
         Reservation reservation = reservationRepository.findById(id).orElseThrow(() -> new NotFoundException("Reservation not found"));
 
         if (isCustomer(user)) {
-            // check if the reservation belongs to the customer
             if (!reservation.getCustomer().getId().equals(user.getId())) {
                 throw new BadRequestException("You are not allowed to pick up this reservation");
             }
         }
 
         if (!reservation.getStatus().equals(Reservation.ReservationStatus.PAID)) {
-            throw new BadRequestException("Reservation is not confirmed yet");
+            throw new BadRequestException("Reservation is not paid yet");
         }
 
 
         reservation.setStatus(Reservation.ReservationStatus.PICKED);
-        reservationRepository.save(reservation);
+       reservation =  reservationRepository.save(reservation);
         return ReservationResponse.fromReservation(reservation);
     }
 
@@ -234,7 +233,7 @@ public class ReservationServiceImpl implements ReservationService {
         vehicle.setAvailability(Vehicle.VehicleAvailability.AVAILABLE);
         vehicleRepository.save(vehicle);
         reservation.setStatus(Reservation.ReservationStatus.COMPLETED);
-        reservationRepository.save(reservation);
+         reservation =   reservationRepository.save(reservation);
 
         return ReservationResponse.fromReservation(reservation);
 
