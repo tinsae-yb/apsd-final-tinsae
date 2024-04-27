@@ -214,7 +214,11 @@ public class ReservationServiceImpl implements ReservationService {
 
 
         reservation.setStatus(Reservation.ReservationStatus.PICKED);
-       reservation =  reservationRepository.save(reservation);
+
+        System.out.println("reservation is picked");
+
+
+        reservation =  reservationRepository.save(reservation);
         return ReservationResponse.fromReservation(reservation);
     }
 

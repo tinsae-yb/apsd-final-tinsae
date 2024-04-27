@@ -44,12 +44,7 @@ public class Reservation {
     @OneToOne(mappedBy = "reservation")
     private Rental rental;
 
-    public ReservationStatus getStatus() {
-        if(rental != null) {
-            return ReservationStatus.PAID;
-        }
-        return status;
-    }
+
 
 
 
