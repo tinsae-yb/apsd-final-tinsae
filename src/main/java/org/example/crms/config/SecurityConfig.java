@@ -42,11 +42,18 @@ public class SecurityConfig {
                             authorizeRequests.requestMatchers(HttpMethod.PUT, "api/v1/vehicle/{id}").hasAuthority(Role.RoleType.ADMIN.name());
                             // LOCATION
                             authorizeRequests.requestMatchers(HttpMethod.POST, "api/v1/location").hasAuthority(Role.RoleType.ADMIN.name());
+                            authorizeRequests.requestMatchers(HttpMethod.GET, "api/v1/location").permitAll();
                             // RESERVATION
                             authorizeRequests.requestMatchers(HttpMethod.POST, "api/v1/reservation").authenticated();
                             authorizeRequests.requestMatchers(HttpMethod.PUT, "api/v1/reservation/{id}").authenticated();
                             authorizeRequests.requestMatchers(HttpMethod.GET, "api/v1/reservation").authenticated();
                             authorizeRequests.requestMatchers(HttpMethod.POST, "api/v1/reservation/{id}/make-payment").authenticated();
+
+                            // USER
+
+                            authorizeRequests.requestMatchers(HttpMethod.GET, "api/v1/customer").hasAuthority(Role.RoleType.ADMIN.name());
+                            authorizeRequests.requestMatchers(HttpMethod.GET, "api/v1/customer/profile").hasAuthority(Role.RoleType.CUSTOMER.name());
+
                         }
                 )
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);

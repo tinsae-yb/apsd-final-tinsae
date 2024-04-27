@@ -8,6 +8,8 @@ import org.example.crms.repo.LocationRepository;
 import org.example.crms.service.LocationService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class LocationServiceImpl implements LocationService {
@@ -15,8 +17,14 @@ public class LocationServiceImpl implements LocationService {
     @Override
     public LocationResponse addLocation(LocationBasicInfo locationBasicInfo) {
         Location location = locationBasicInfo.toLocation();
-        location = locationRepository.save(location);
+        location = locationRepository.save(location);;
         return LocationResponse.fromLocation(location);
 
+    }
+
+    @Override
+    public List<LocationResponse> getAllLocations() {
+        List<Location> locations = locationRepository.findAll();
+        return locations.stream().map(LocationResponse::fromLocation).toList();
     }
 }

@@ -39,14 +39,13 @@ public class ReservationServiceImpl implements ReservationService {
 
         if (!isCustomer(user)) {
 
-            System.out.println("------------  admin or agent");
+
             if (reservationRequest.getCustomerId() == null) {
                 throw new NotFoundException("Customer id is required");
             }
             customer = customerRepository.findById(reservationRequest.getCustomerId()).orElseThrow(() -> new NotFoundException("Customer not found"));
         } else {
-            System.out.println("------------  customer" + user.getId());
-            customerRepository.findAll().forEach(System.out::println);
+             customerRepository.findAll().forEach(System.out::println);
             customer = customerRepository.findById(user.getId()).orElseThrow(() -> new NotFoundException("Customer not found"));
 
             System.out.println(customer);
@@ -139,11 +138,11 @@ public class ReservationServiceImpl implements ReservationService {
             customerId = user.getId();
         }
 
-        if (customerId == null) {
-            throw new BadRequestException("Customer id is required");
+        if (customerId != null) {
+            customerRepository.findById(customerId).orElseThrow(() -> new NotFoundException("Customer not found"));
         }
 
-        customerRepository.findById(customerId).orElseThrow(() -> new NotFoundException("Customer not found"));
+
         return reservationRepository.findAllByCustomerId(customerId).stream().map(ReservationResponse::fromReservation).toList();
 
 
