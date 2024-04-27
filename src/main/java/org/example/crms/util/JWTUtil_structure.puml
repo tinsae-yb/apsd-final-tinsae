@@ -1,0 +1,220 @@
+@startuml
+
+/' diagram meta data start
+config=StructureConfiguration;
+{
+  "projectClassification": {
+    "searchMode": "OpenProject", // OpenProject, AllProjects
+    "includedProjects": "",
+    "pathEndKeywords": "*.impl",
+    "isClientPath": "",
+    "isClientName": "",
+    "isTestPath": "",
+    "isTestName": "",
+    "isMappingPath": "",
+    "isMappingName": "",
+    "isDataAccessPath": "",
+    "isDataAccessName": "",
+    "isDataStructurePath": "",
+    "isDataStructureName": "",
+    "isInterfaceStructuresPath": "",
+    "isInterfaceStructuresName": "",
+    "isEntryPointPath": "",
+    "isEntryPointName": "",
+    "treatFinalFieldsAsMandatory": false
+  },
+  "graphRestriction": {
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "removeByInheritance": "", // inheritance/annotation based filtering is done in a second step
+    "removeByAnnotation": "",
+    "removeByClassPackage": "", // cleanup the graph after inheritance/annotation based filtering is done
+    "removeByClassName": "",
+    "cutMappings": false,
+    "cutEnum": true,
+    "cutTests": true,
+    "cutClient": true,
+    "cutDataAccess": true,
+    "cutInterfaceStructures": true,
+    "cutDataStructures": true,
+    "cutGetterAndSetter": true,
+    "cutConstructors": true
+  },
+  "graphTraversal": {
+    "forwardDepth": 3,
+    "backwardDepth": 3,
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "hideMappings": false,
+    "hideDataStructures": false,
+    "hidePrivateMethods": true,
+    "hideInterfaceCalls": true, // indirection: implementation -> interface (is hidden) -> implementation
+    "onlyShowApplicationEntryPoints": false, // root node is included
+    "useMethodCallsForStructureDiagram": "ForwardOnly" // ForwardOnly, BothDirections, No
+  },
+  "details": {
+    "aggregation": "GroupByClass", // ByClass, GroupByClass, None
+    "showClassGenericTypes": true,
+    "showMethods": true,
+    "showMethodParameterNames": true,
+    "showMethodParameterTypes": true,
+    "showMethodReturnType": true,
+    "showPackageLevels": 2,
+    "showDetailedClassStructure": true
+  },
+  "rootClass": "org.example.crms.util.JWTUtil",
+  "extensionCallbackMethod": "" // qualified.class.name#methodName - signature: public static String method(String)
+}
+diagram meta data end '/
+
+
+
+digraph g {
+    rankdir="TB"
+    splines=polyline
+    
+
+'nodes 
+subgraph cluster_1322970774 { 
+   	label=example
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+   
+   subgraph cluster_134859687 { 
+   	label=crms
+	labeljust=l
+	fillcolor="#d8d8d8"
+	style=filled
+   
+   AuthController1419170292[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)AuthController</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   authService: AuthService [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ login(loginRequest: LoginRequest): LoginResponse</TD></TR>
+<TR><TD ALIGN="LEFT" >+ refresh(refreshTokenRequest: RefreshTokenRequest): RefreshTokenResponse</TD></TR>
+<TR><TD ALIGN="LEFT" >+ register(registerUserRequest: RegisterUserRequest): RegisterUserResponse</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+AuthServiceImpl881284772[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)AuthServiceImpl</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   customerRepository: CustomerRepository [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   jwtUtil: JWTUtil [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   passwordEncoder: PasswordEncoder [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   roleRepository: RoleRepository [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   userDetailsService: UserDetailsServiceImpl [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   userRepository: UserRepository [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ login(loginRequest: LoginRequest): LoginResponse</TD></TR>
+<TR><TD ALIGN="LEFT" >+ refresh(refreshTokenRequest: RefreshTokenRequest): RefreshTokenResponse</TD></TR>
+<TR><TD ALIGN="LEFT" >+ register(registerUserRequest: RegisterUserRequest): RegisterUserResponse</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+JWTFilter449130659[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)JWTFilter</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   jwtUtil: JWTUtil [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   mapper: ObjectMapper [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   userDetailsServiceImpl: UserDetailsService [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" ># doFilterInternal(request: HttpServletRequest, response: HttpServletResponse, filterChain: FilterChain)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+JWTUtil1768905747[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)JWTUtil</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   jwtConfig: JwtConfig [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ extractAllClaims(token: String): Claims</TD></TR>
+<TR><TD ALIGN="LEFT" >+ extractClaim(token: String, claimsResolver: Function&lt;Claims, T&gt;): T</TD></TR>
+<TR><TD ALIGN="LEFT" >+ extractExpiration(token: String): Date</TD></TR>
+<TR><TD ALIGN="LEFT" >+ extractUsername(token: String): String</TD></TR>
+<TR><TD ALIGN="LEFT" >+ generateAccessToken(userDetails: UserDetails): String</TD></TR>
+<TR><TD ALIGN="LEFT" >+ generateRefreshToken(userDetails: UserDetails): String</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getToken(httpServletRequest: HttpServletRequest): String</TD></TR>
+<TR><TD ALIGN="LEFT" >+ isTokenExpired(token: String): Boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ validateToken(token: String, userDetails: UserDetails): Boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ validateToken(token: String): boolean</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+JwtConfig368830573[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)JwtConfig</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   accessTokenExpiration: Long [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   refreshTokenExpiration: Long [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   secret: String [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" ># canEqual(other: Object): boolean</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+SecurityConfig368830573[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)SecurityConfig</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   jwtFilter: JWTFilter [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ filterChain(http: HttpSecurity): SecurityFilterChain</TD></TR>
+<TR><TD ALIGN="LEFT" >+ passwordEncoder(): BCryptPasswordEncoder</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+} 
+} 
+
+'edges    
+AuthController1419170292 -> AuthServiceImpl881284772[label="authService
+[0..1]", arrowhead=none];
+AuthServiceImpl881284772 -> JWTUtil1768905747[label="jwtUtil
+[0..1]"];
+JWTFilter449130659 -> JWTUtil1768905747[label="jwtUtil
+[0..1]"];
+JWTUtil1768905747 -> JwtConfig368830573[label="jwtConfig
+[0..1]"];
+SecurityConfig368830573 -> JWTFilter449130659[label="jwtFilter
+[0..1]"];
+    
+}
+@enduml

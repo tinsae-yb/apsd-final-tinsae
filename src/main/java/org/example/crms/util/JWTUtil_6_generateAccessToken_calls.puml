@@ -1,0 +1,202 @@
+@startuml
+
+/' diagram meta data start
+config=CallConfiguration;
+{
+  "rootMethod": "org.example.crms.util.JWTUtil#generateAccessToken(UserDetails)",
+  "projectClassification": {
+    "searchMode": "OpenProject", // OpenProject, AllProjects
+    "includedProjects": "",
+    "pathEndKeywords": "*.impl",
+    "isClientPath": "",
+    "isClientName": "",
+    "isTestPath": "",
+    "isTestName": "",
+    "isMappingPath": "",
+    "isMappingName": "",
+    "isDataAccessPath": "",
+    "isDataAccessName": "",
+    "isDataStructurePath": "",
+    "isDataStructureName": "",
+    "isInterfaceStructuresPath": "",
+    "isInterfaceStructuresName": "",
+    "isEntryPointPath": "",
+    "isEntryPointName": "",
+    "treatFinalFieldsAsMandatory": false
+  },
+  "graphRestriction": {
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "removeByInheritance": "", // inheritance/annotation based filtering is done in a second step
+    "removeByAnnotation": "",
+    "removeByClassPackage": "", // cleanup the graph after inheritance/annotation based filtering is done
+    "removeByClassName": "",
+    "cutMappings": false,
+    "cutEnum": true,
+    "cutTests": true,
+    "cutClient": true,
+    "cutDataAccess": true,
+    "cutInterfaceStructures": true,
+    "cutDataStructures": true,
+    "cutGetterAndSetter": true,
+    "cutConstructors": true
+  },
+  "graphTraversal": {
+    "forwardDepth": 3,
+    "backwardDepth": 3,
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "hideMappings": false,
+    "hideDataStructures": false,
+    "hidePrivateMethods": true,
+    "hideInterfaceCalls": true, // indirection: implementation -> interface (is hidden) -> implementation
+    "onlyShowApplicationEntryPoints": false, // root node is included
+    "useMethodCallsForStructureDiagram": "ForwardOnly" // ForwardOnly, BothDirections, No
+  },
+  "details": {
+    "aggregation": "GroupByClass", // ByClass, GroupByClass, None
+    "showMethodParametersTypes": false,
+    "showMethodParametersNames": false,
+    "showMethodReturnType": false,
+    "showPackageLevels": 2,
+    "showCallOrder": false,
+    "edgeMode": "MethodsOnly", // TypesOnly, MethodsOnly, TypesAndMethods, MethodsAndDirectTypeUsage
+    "showDetailedClassStructure": false
+  },
+  "rootClass": "org.example.crms.util.JWTUtil",
+  "extensionCallbackMethod": "" // qualified.class.name#methodName - signature: public static String method(String)
+}
+diagram meta data end '/
+
+
+
+digraph g {
+    rankdir="LR"
+    splines=polyline
+    
+
+'nodes 
+subgraph cluster_1322970774 { 
+   	label=example
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+   
+   subgraph cluster_134859687 { 
+   	label=crms
+	labeljust=l
+	fillcolor="#d8d8d8"
+	style=filled
+   
+   subgraph cluster_1154183101 { 
+   	label=AuthServiceImpl
+	labeljust=l
+	fillcolor=white
+	style=filled
+   
+   AuthServiceImpl881284772XXXlogin952989446[
+	label="+ login()"
+	style=filled
+	fillcolor=white
+	tooltip="AuthServiceImpl
+
+null"
+	fontcolor=darkgreen
+];
+
+AuthServiceImpl881284772XXXrefresh895445839[
+	label="+ refresh()"
+	style=filled
+	fillcolor=white
+	tooltip="AuthServiceImpl
+
+null"
+	fontcolor=darkgreen
+];
+
+AuthServiceImpl881284772XXXregister921018753[
+	label="+ register()"
+	style=filled
+	fillcolor=white
+	tooltip="AuthServiceImpl
+
+null"
+	fontcolor=darkgreen
+];
+} 
+
+subgraph cluster_1792626760 { 
+   	label=JWTUtil
+	labeljust=l
+	fillcolor=white
+	style=filled
+   
+   JWTUtil1768905747XXXgenerateAccessToken1371243561[
+	label="+ generateAccessToken()"
+	style=filled
+	fillcolor=white
+	tooltip="JWTUtil
+
+null"
+	penwidth=4
+	fontcolor=darkgreen
+];
+} 
+
+subgraph cluster_721254490 { 
+   	label=AuthController
+	labeljust=l
+	fillcolor=white
+	style=filled
+   
+   AuthController1419170292XXXlogin952989446[
+	label="+ login()"
+	style=filled
+	fillcolor=white
+	tooltip="AuthController
+
+null"
+	fontcolor=darkgreen
+];
+
+AuthController1419170292XXXrefresh895445839[
+	label="+ refresh()"
+	style=filled
+	fillcolor=white
+	tooltip="AuthController
+
+null"
+	fontcolor=darkgreen
+];
+
+AuthController1419170292XXXregister921018753[
+	label="+ register()"
+	style=filled
+	fillcolor=white
+	tooltip="AuthController
+
+null"
+	fontcolor=darkgreen
+];
+} 
+} 
+} 
+
+'edges    
+AuthController1419170292XXXlogin952989446 -> AuthServiceImpl881284772XXXlogin952989446;
+AuthController1419170292XXXrefresh895445839 -> AuthServiceImpl881284772XXXrefresh895445839;
+AuthController1419170292XXXregister921018753 -> AuthServiceImpl881284772XXXregister921018753;
+AuthServiceImpl881284772XXXlogin952989446 -> JWTUtil1768905747XXXgenerateAccessToken1371243561;
+AuthServiceImpl881284772XXXrefresh895445839 -> JWTUtil1768905747XXXgenerateAccessToken1371243561;
+AuthServiceImpl881284772XXXregister921018753 -> JWTUtil1768905747XXXgenerateAccessToken1371243561;
+    
+}
+@enduml

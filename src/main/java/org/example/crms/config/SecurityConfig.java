@@ -34,6 +34,9 @@ public class SecurityConfig {
                 .sessionManagement(sessionManagement -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorizeRequests ->
                         {
+
+                            // SWAGGER
+                            authorizeRequests.requestMatchers(  HttpMethod.GET, "/v3/api-docs/**", "swagger-ui/**").permitAll();
                             // AUTH
                             authorizeRequests.requestMatchers(HttpMethod.POST, "api/v1/auth/login", "api/v1/auth/refresh", "api/v1/auth/register").permitAll();
                            // VEHICLE

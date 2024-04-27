@@ -46,10 +46,8 @@ public class AuthServiceImpl implements AuthService {
         try {
 
 
-
             if(registerUserRequest.getRole().getRoleType() == Role.RoleType.CUSTOMER){
                 Customer customer = registerUserRequest.toCustomer();
-
                 customer.setPassword(passwordEncoder.encode(customer.getPassword()));
                 List<Role> roles = customer.getRoles().stream().map(role -> {
                     Optional<Role> optionalRole = roleRepository.findByRoleType(role.getRoleType());
@@ -85,7 +83,6 @@ public class AuthServiceImpl implements AuthService {
             UserDetails userDetails = new UserDetailsImpl(user);
             String accessToken = jwtUtil.generateAccessToken(userDetails);
             String refreshToken = jwtUtil.generateRefreshToken(userDetails);
-
             return RegisterUserResponse.fromUser(user, accessToken, refreshToken);
 
         } catch (DataIntegrityViolationException e) {
